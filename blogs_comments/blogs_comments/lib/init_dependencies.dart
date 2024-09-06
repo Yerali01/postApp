@@ -11,7 +11,7 @@ final serviceLocator = GetIt.instance;
 
 Future<void> initDependencies() async {
   _initPost();
-  _initComments();
+  // _initComments();
 }
 
 void _initPost() {
@@ -34,29 +34,6 @@ void _initPost() {
         serviceLocator(),
       ),
     )
-    //bloc
-    ..registerLazySingleton(
-      () => PostBloc(
-        getAllPosts: serviceLocator(),
-      ),
-    );
-}
-
-void _initComments() {
-  //datasource
-  serviceLocator
-    ..registerFactory<RemoteDatasource>(
-      () => RemoteDataSourceImplementation(
-          // serviceLocator(),
-          ),
-    )
-    //repository
-    ..registerFactory<Repository>(
-      () => RepositoryImplementation(
-        serviceLocator(),
-      ),
-    )
-    //usecases
     ..registerFactory(
       () => GetAllComments(
         serviceLocator(),
@@ -64,8 +41,32 @@ void _initComments() {
     )
     //bloc
     ..registerLazySingleton(
+      () => PostBloc(
+        getAllPosts: serviceLocator(),
+      ),
+    )
+    ..registerLazySingleton(
       () => CommentBloc(
         getPostComments: serviceLocator(),
       ),
     );
 }
+
+// void _initComments() {
+//   //datasource
+
+//     //repository
+
+//     //usecases
+//     ..registerFactory(
+//       () => GetAllComments(
+//         serviceLocator(),
+//       ),
+//     )
+//     //bloc
+//     ..registerLazySingleton(
+//       () => CommentBloc(
+//         getPostComments: serviceLocator(),
+//       ),
+//     );
+// }

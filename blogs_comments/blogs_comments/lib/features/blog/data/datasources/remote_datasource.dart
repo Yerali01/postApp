@@ -16,9 +16,9 @@ class RemoteDataSourceImplementation implements RemoteDatasource {
   Future<List<PostModel>> getAllPosts() async {
     try {
       final posts = await http.get(Uri.parse("${baseUrl}/posts"));
-
-      List<dynamic> data = await convert.jsonDecode(posts.body);
-      return data.map((json) => PostModel.fromJson(json)).toList();
+      final photos = await http.get(Uri.parse("${baseUrl}/photos"));
+      List<dynamic> dataPosts = await convert.jsonDecode(posts.body);
+      return dataPosts.map((json) => PostModel.fromJson(json)).toList();
     } catch (e) {
       throw Exception(e.toString());
     }

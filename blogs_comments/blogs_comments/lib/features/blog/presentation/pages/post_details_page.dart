@@ -47,6 +47,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
             return const ShimmerLoader();
           }
           if (state is CommentDisplaySuccess) {
+            print('COMMENT SUCCESS + ${state.comments.length}');
             return ListView.builder(
               itemCount: state.comments.length,
               itemBuilder: (context, index) {

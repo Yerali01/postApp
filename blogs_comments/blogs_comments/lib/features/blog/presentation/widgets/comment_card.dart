@@ -8,6 +8,7 @@ class CommentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.purple,
       child: Text(
         "${comment.postId}",
       ),

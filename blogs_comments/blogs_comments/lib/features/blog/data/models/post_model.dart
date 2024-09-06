@@ -6,6 +6,7 @@ class PostModel extends PostEntity {
     required super.id,
     required super.title,
     required super.body,
+    super.imageUrl,
   });
 
   Map<String, dynamic> toJson() {
@@ -23,6 +24,22 @@ class PostModel extends PostEntity {
       id: map['id'] ?? 0,
       title: map['title'] ?? '',
       body: map['body'] ?? '',
+    );
+  }
+
+  PostModel copyWith({
+    int? userId,
+    int? id,
+    String? title,
+    String? body,
+    String? imageUrl,
+  }) {
+    return PostModel(
+      userId: userId ?? this.userId,
+      id: id ?? this.id,
+      title: title ?? this.title,
+      body: body ?? this.body,
+      imageUrl: imageUrl ?? this.imageUrl,
     );
   }
 }
