@@ -5,7 +5,7 @@ import 'package:blogs_comments/features/blog/domain/repositories/post_repo.dart'
 import 'package:fpdart/fpdart.dart';
 
 class GetAllPosts implements UseCase<List<PostEntity>, NoParams> {
-  final PostRepository postRepository;
+  final Repository postRepository;
   GetAllPosts(this.postRepository);
 
   @override

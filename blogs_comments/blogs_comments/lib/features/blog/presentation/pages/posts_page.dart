@@ -28,15 +28,6 @@ class _PostsPageState extends State<PostsPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Posts"),
-        actions: [
-          // IconButton(
-          // icon: const Icon(Icons.add_circle_outline),
-          // onPressed: () => Navigator.push(
-          // context,
-          // AddNewPostPage.route(),
-          // ),
-          // ),
-        ],
       ),
       body: BlocConsumer<PostBloc, PostState>(
         listener: (context, state) {
@@ -46,11 +37,9 @@ class _PostsPageState extends State<PostsPage> {
         },
         builder: (context, state) {
           if (state is PostLoading) {
-            print("Loader loading");
             return const ShimmerLoader();
           }
           if (state is PostDisplaySuccess) {
-            print("listview success");
             return ListView.builder(
               itemCount: state.posts.length,
               itemBuilder: (context, index) {
@@ -61,7 +50,6 @@ class _PostsPageState extends State<PostsPage> {
               },
             );
           }
-          print('sized box');
           return const SizedBox();
         },
       ),

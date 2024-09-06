@@ -1,4 +1,5 @@
 import 'package:blogs_comments/core/theme/theme.dart';
+import 'package:blogs_comments/features/blog/presentation/bloc/comment_bloc.dart';
 import 'package:blogs_comments/features/blog/presentation/bloc/post_bloc.dart';
 import 'package:blogs_comments/features/blog/presentation/pages/posts_page.dart';
 import 'package:blogs_comments/init_dependencies.dart';
@@ -12,6 +13,9 @@ void main() async {
       providers: [
         BlocProvider(
           create: (_) => serviceLocator<PostBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => serviceLocator<CommentBloc>(),
         ),
       ],
       child: const MyApp(),
@@ -44,7 +48,7 @@ class _MyAppState extends State<MyApp> {
           return state is PostDisplaySuccess;
         },
         builder: (context, state) {
-          return PostsPage();
+          return const PostsPage();
         },
       ),
     );

@@ -6,10 +6,10 @@ import 'dart:convert' as convert;
 abstract interface class RemoteDatasource {
   Future<List<PostModel>> getAllPosts();
 
-  Future<List<CommentModel>> getAllComments();
+  Future<List<CommentModel>> getAllComments(int postId);
 }
 
-class RemoteDataSourceImpl implements RemoteDatasource {
+class RemoteDataSourceImplementation implements RemoteDatasource {
   final String baseUrl = 'https://jsonplaceholder.typicode.com';
 
   @override
@@ -25,11 +25,12 @@ class RemoteDataSourceImpl implements RemoteDatasource {
   }
 
   @override
-  Future<List<CommentModel>> getAllComments() async {
+  Future<List<CommentModel>> getAllComments(int postId) async {
     try {
-      final posts = await http.get(Uri.parse("${baseUrl}/posts/1/comments"));
+      final comments =
+          await http.get(Uri.parse("${baseUrl}/posts/${postId}/comments"));
 
-      List<dynamic> data = await convert.jsonDecode(posts.body);
+      List<dynamic> data = await convert.jsonDecode(comments.body);
       return data.map((json) => CommentModel.fromJson(json)).toList();
     } catch (e) {
       throw Exception(e.toString());

@@ -5,7 +5,7 @@ import 'package:blogs_comments/features/blog/domain/entities/post.dart';
 import 'package:blogs_comments/features/blog/domain/repositories/post_repo.dart';
 import 'package:fpdart/fpdart.dart';
 
-class RepositoryImplementation implements PostRepository {
+class RepositoryImplementation implements Repository {
   final RemoteDatasource postRemoteDatasource;
 
   RepositoryImplementation(this.postRemoteDatasource);
@@ -23,9 +23,10 @@ class RepositoryImplementation implements PostRepository {
   }
 
   @override
-  Future<Either<Failure, List<CommentEntity>>> getAllComments() async {
+  Future<Either<Failure, List<CommentEntity>>> getAllComments(
+      {required int postId}) async {
     try {
-      final comments = await postRemoteDatasource.getAllComments();
+      final comments = await postRemoteDatasource.getAllComments(postId);
       print(comments.length);
       return right(comments);
     } catch (e) {
