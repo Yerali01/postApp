@@ -22,51 +22,49 @@ class PostDetailsContainer extends StatelessWidget {
           ),
         ],
       ),
-      child: Expanded(
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: CachedNetworkImage(
-                fit: BoxFit.fill,
-                height: 300,
-                width: deviceWidth,
-                imageUrl: post.imageUrl!,
-                placeholder: (context, url) => Container(
-                  margin: const EdgeInsets.all(25),
-                  child: const CircularProgressIndicator(
-                    color: AppPallete.white,
-                    strokeWidth: 3,
-                  ),
-                ),
-                errorWidget: (context, url, error) => const Icon(
-                  Icons.error,
-                  color: AppPallete.errorColor,
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: CachedNetworkImage(
+              fit: BoxFit.fill,
+              height: 300,
+              width: deviceWidth,
+              imageUrl: post.imageUrl!,
+              placeholder: (context, url) => Container(
+                margin: const EdgeInsets.all(25),
+                child: const CircularProgressIndicator(
+                  color: AppPallete.white,
+                  strokeWidth: 3,
                 ),
               ),
-            ),
-            const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                post.title,
-                style: const TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                ),
+              errorWidget: (context, url, error) => const Icon(
+                Icons.error,
+                color: AppPallete.errorColor,
               ),
             ),
-            const SizedBox(height: 8),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                post.body,
-                style: const TextStyle(fontSize: 15),
+          ),
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              post.title,
+              style: const TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 16),
-          ],
-        ),
+          ),
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              post.body,
+              style: const TextStyle(fontSize: 15),
+            ),
+          ),
+          const SizedBox(height: 16),
+        ],
       ),
     );
   }

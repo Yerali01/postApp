@@ -17,7 +17,7 @@ class _ShimmerPostLoaderState extends State<ShimmerPostLoader> {
       enabled: true,
       child: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
-        child: Container(
+        child: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,

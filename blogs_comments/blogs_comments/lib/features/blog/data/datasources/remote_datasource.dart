@@ -15,8 +15,8 @@ class RemoteDataSourceImplementation implements RemoteDatasource {
   @override
   Future<List<PostModel>> getAllPosts() async {
     try {
-      final postsResponse = await http.get(Uri.parse("${mainUrl}/posts"));
-      final photosResponse = await http.get(Uri.parse("${mainUrl}/photos"));
+      final postsResponse = await http.get(Uri.parse("$mainUrl/posts"));
+      final photosResponse = await http.get(Uri.parse("$mainUrl/photos"));
 
       List<dynamic> dataPosts = convert.jsonDecode(postsResponse.body);
       List<dynamic> dataPhotos = convert.jsonDecode(photosResponse.body);
@@ -40,7 +40,7 @@ class RemoteDataSourceImplementation implements RemoteDatasource {
   Future<List<CommentModel>> getAllComments(int postId) async {
     try {
       final comments =
-          await http.get(Uri.parse("${mainUrl}/posts/${postId}/comments"));
+          await http.get(Uri.parse("$mainUrl/posts/$postId/comments"));
 
       List<dynamic> data = await convert.jsonDecode(comments.body);
       return data.map((json) => CommentModel.fromJson(json)).toList();

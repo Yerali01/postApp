@@ -52,7 +52,7 @@ class CacheDatasourceImplementation implements CacheDatasource {
   Future<List<CommentModel>> getFromLocalComments(int postId) async {
     List<CommentModel> comments = [];
 
-    Box box = await Hive.openBox('${commentsBoxOne}-${postId}');
+    Box box = await Hive.openBox('$commentsBoxOne-$postId');
     for (int i = 0; i < box.length; i++) {
       CommentModel commentSingle = CommentModel.fromJson(
         box.get(
@@ -70,7 +70,7 @@ class CacheDatasourceImplementation implements CacheDatasource {
     required int postId,
     required List<CommentModel> comments,
   }) async {
-    Box box = await Hive.openBox('${commentsBoxOne}-${postId}');
+    Box box = await Hive.openBox('$commentsBoxOne-$postId');
     box.clear();
     for (int i = 0; i < comments.length; i++) {
       box.put(i.toString(), comments[i].toJson());

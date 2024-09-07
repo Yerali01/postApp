@@ -30,8 +30,8 @@ class PostCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              width: deviceWidth / 2,
+            SizedBox(
+              width: (deviceWidth / 2),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

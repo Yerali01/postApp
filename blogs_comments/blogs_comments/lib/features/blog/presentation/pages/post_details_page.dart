@@ -14,7 +14,7 @@ class PostDetailsPage extends StatefulWidget {
       );
 
   final PostEntity post;
-  PostDetailsPage({
+  const PostDetailsPage({
     super.key,
     required this.post,
   });
@@ -57,18 +57,11 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
             SliverToBoxAdapter(
               child: PostDetailsContainer(post: widget.post),
             ),
-          ];
-        },
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10).copyWith(top: 15),
-                child: const Text(
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20)
+                  .copyWith(top: 15),
+              sliver: const SliverToBoxAdapter(
+                child: Text(
                   "Comments",
                   style: TextStyle(
                     color: AppPallete.white,
@@ -77,40 +70,40 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                   ),
                 ),
               ),
-              Expanded(
-                child: BlocConsumer<CommentBloc, CommentState>(
-                  listener: (context, state) {
-                    if (state is CommentFailure) {
-                      showSnackbar(context, state.error);
-                    }
-                  },
-                  builder: (context, state) {
-                    if (state is CommentLoading) {
-                      return const ShimmerCommentLoader();
-                    }
-                    if (state is CommentDisplaySuccess) {
-                      if (state.comments.isEmpty) {
-                        return const Center(
-                          child: Text('No comments found.'),
-                        );
-                      }
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        itemCount: state.comments.length,
-                        itemBuilder: (context, index) {
-                          final comment = state.comments[index];
-                          return CommentCard(comment: comment);
-                        },
-                      );
-                    }
-                    return const Center(
-                      child: Text('No comments found.'),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
+            ),
+          ];
+        },
+        body: BlocConsumer<CommentBloc, CommentState>(
+          listener: (context, state) {
+            if (state is CommentFailure) {
+              showSnackbar(context, state.error);
+            }
+          },
+          builder: (context, state) {
+            if (state is CommentLoading) {
+              return const ShimmerCommentLoader();
+            }
+            if (state is CommentDisplaySuccess) {
+              if (state.comments.isEmpty) {
+                return const Center(
+                  child: Text('No comments found.'),
+                );
+              }
+              return ListView.builder(
+                padding: EdgeInsets.zero,
+                itemCount: state.comments.length,
+                itemBuilder: (context, index) {
+                  final comment = state.comments[index];
+                  return Container(
+                    child: CommentCard(comment: comment),
+                  );
+                },
+              );
+            }
+            return const Center(
+              child: Text('No comments found.'),
+            );
+          },
         ),
       ),
     );
