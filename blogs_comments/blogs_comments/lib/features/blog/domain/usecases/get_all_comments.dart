@@ -1,10 +1,8 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:fpdart/src/either.dart';
-
-import 'package:blogs_comments/core/failures.dart';
+import 'package:blogs_comments/core/utils/failures.dart';
 import 'package:blogs_comments/core/usecase/usecase.dart';
 import 'package:blogs_comments/features/blog/domain/entities/comments.dart';
 import 'package:blogs_comments/features/blog/domain/repositories/post_repo.dart';
+import 'package:fpdart/fpdart.dart';
 
 class GetAllComments
     implements UseCase<List<CommentEntity>, GetAllCommentsParams> {
@@ -13,7 +11,8 @@ class GetAllComments
 
   @override
   Future<Either<Failure, List<CommentEntity>>> call(
-      GetAllCommentsParams params) async {
+    GetAllCommentsParams params,
+  ) async {
     return await commentRepository.getAllComments(postId: params.postId);
   }
 }

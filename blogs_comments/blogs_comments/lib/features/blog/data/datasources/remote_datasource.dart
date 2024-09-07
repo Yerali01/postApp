@@ -10,13 +10,13 @@ abstract interface class RemoteDatasource {
 }
 
 class RemoteDataSourceImplementation implements RemoteDatasource {
-  final String baseUrl = 'https://jsonplaceholder.typicode.com';
+  final String mainUrl = 'https://jsonplaceholder.typicode.com';
 
   @override
   Future<List<PostModel>> getAllPosts() async {
     try {
-      final postsResponse = await http.get(Uri.parse("${baseUrl}/posts"));
-      final photosResponse = await http.get(Uri.parse("${baseUrl}/photos"));
+      final postsResponse = await http.get(Uri.parse("${mainUrl}/posts"));
+      final photosResponse = await http.get(Uri.parse("${mainUrl}/photos"));
 
       List<dynamic> dataPosts = convert.jsonDecode(postsResponse.body);
       List<dynamic> dataPhotos = convert.jsonDecode(photosResponse.body);
@@ -29,7 +29,6 @@ class RemoteDataSourceImplementation implements RemoteDatasource {
       for (int i = 0; i < posts.length; i++) {
         posts[i].imageUrl = photos[i % photos.length];
       }
-      print(posts[0].imageUrl);
 
       return posts;
     } catch (e) {
@@ -41,7 +40,7 @@ class RemoteDataSourceImplementation implements RemoteDatasource {
   Future<List<CommentModel>> getAllComments(int postId) async {
     try {
       final comments =
-          await http.get(Uri.parse("${baseUrl}/posts/${postId}/comments"));
+          await http.get(Uri.parse("${mainUrl}/posts/${postId}/comments"));
 
       List<dynamic> data = await convert.jsonDecode(comments.body);
       return data.map((json) => CommentModel.fromJson(json)).toList();

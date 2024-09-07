@@ -5,7 +5,6 @@ import 'package:blogs_comments/features/blog/domain/entities/post.dart';
 import 'package:blogs_comments/features/blog/presentation/bloc/post_bloc.dart';
 import 'package:blogs_comments/features/blog/presentation/widgets/post_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PostsPage extends StatefulWidget {

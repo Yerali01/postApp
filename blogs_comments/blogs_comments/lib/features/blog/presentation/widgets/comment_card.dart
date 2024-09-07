@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class CommentCard extends StatelessWidget {
   final CommentEntity comment;
-  CommentCard({super.key, required this.comment});
+  const CommentCard({super.key, required this.comment});
 
   @override
   Widget build(BuildContext context) {

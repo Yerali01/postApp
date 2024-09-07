@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class PostDetailsContainer extends StatelessWidget {
   final PostEntity post;
-  PostDetailsContainer({super.key, required this.post});
+  const PostDetailsContainer({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {

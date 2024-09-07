@@ -19,7 +19,6 @@ class CommentModel extends CommentEntity {
     };
   }
 
-  // factory CommentModel.fromJson(Map<String, dynamic> map) {
   factory CommentModel.fromJson(Map<dynamic, dynamic> map) {
     return CommentModel(
       postId: map['postId'] ?? 0,

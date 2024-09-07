@@ -1,5 +1,5 @@
-import 'package:blogs_comments/core/connection_checker.dart';
-import 'package:blogs_comments/core/failures.dart';
+import 'package:blogs_comments/core/utils/connection_checker.dart';
+import 'package:blogs_comments/core/utils/failures.dart';
 import 'package:blogs_comments/features/blog/data/datasources/cache_datasource.dart';
 import 'package:blogs_comments/features/blog/data/datasources/remote_datasource.dart';
 import 'package:blogs_comments/features/blog/domain/entities/comments.dart';
@@ -19,7 +19,6 @@ class RepositoryImplementation implements Repository {
   Future<Either<Failure, List<PostEntity>>> getAllPosts() async {
     try {
       if (!await connectionChecker.isConnected) {
-        print("started from cache ");
         final posts = await cacheDatasource.getFromLocalPosts();
         return right(posts);
       }
@@ -28,8 +27,7 @@ class RepositoryImplementation implements Repository {
       cacheDatasource.uploadToLocalPosts(posts: posts);
       return right(posts);
     } on Exception catch (e) {
-      print(e.toString());
-      return left(Failure('Error fetching posts'));
+      return left(Failure('Error fetching posts - ${e.toString()}'));
     }
   }
 
@@ -47,8 +45,7 @@ class RepositoryImplementation implements Repository {
       cacheDatasource.uploadToLocalComments(postId: postId, comments: comments);
       return right(comments);
     } catch (e) {
-      print(e.toString());
-      return left(Failure('Error fetching comments'));
+      return left(Failure('Error fetching comments - ${e.toString()}'));
     }
   }
 }

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class PostCard extends StatelessWidget {
   final PostEntity post;
-  PostCard({super.key, required this.post});
+  const PostCard({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {

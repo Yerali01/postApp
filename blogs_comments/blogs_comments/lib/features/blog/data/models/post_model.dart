@@ -19,7 +19,6 @@ class PostModel extends PostEntity {
     };
   }
 
-  // factory PostModel.fromJson(Map<String, dynamic> map) {
   factory PostModel.fromJson(Map<dynamic, dynamic> map) {
     return PostModel(
       userId: map['userId'] ?? 0,

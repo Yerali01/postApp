@@ -21,7 +21,7 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
       CommentGetAllComments event, Emitter<CommentState> emit) async {
     final res = await _getAllComments(
       GetAllCommentsParams(postId: event.postId),
-    ); //post as a param
+    );
 
     res.fold(
       (l) => emit(

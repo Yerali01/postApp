@@ -18,12 +18,14 @@ abstract interface class CacheDatasource {
 }
 
 class CacheDatasourceImplementation implements CacheDatasource {
+  static const String postsBox = 'posts';
+  static const String commentsBoxOne = 'comments';
+
   @override
   Future<List<PostModel>> getFromLocalPosts() async {
     List<PostModel> posts = [];
 
-    Box box = await Hive.openBox('posts');
-    print('box opened');
+    Box box = await Hive.openBox(postsBox);
     for (int i = 0; i < box.length; i++) {
       posts.add(
         PostModel.fromJson(
@@ -38,7 +40,7 @@ class CacheDatasourceImplementation implements CacheDatasource {
 
   @override
   void uploadToLocalPosts({required List<PostModel> posts}) async {
-    Box box = await Hive.openBox('posts');
+    Box box = await Hive.openBox(postsBox);
     box.clear();
 
     for (int i = 0; i < posts.length; i++) {
@@ -48,22 +50,16 @@ class CacheDatasourceImplementation implements CacheDatasource {
 
   @override
   Future<List<CommentModel>> getFromLocalComments(int postId) async {
-    print('startws');
     List<CommentModel> comments = [];
 
-    Box box = await Hive.openBox('comments-${postId}');
-    print("keys ${box.keys}");
-    print("values ${box.values}");
+    Box box = await Hive.openBox('${commentsBoxOne}-${postId}');
     for (int i = 0; i < box.length; i++) {
       CommentModel commentSingle = CommentModel.fromJson(
         box.get(
           i.toString(),
         ),
       );
-      print(commentSingle);
-      // if (commentSingle.postId == postId) {
       comments.add(commentSingle);
-      // }
     }
 
     return comments;
@@ -74,11 +70,10 @@ class CacheDatasourceImplementation implements CacheDatasource {
     required int postId,
     required List<CommentModel> comments,
   }) async {
-    Box box = await Hive.openBox('comments-${postId}');
+    Box box = await Hive.openBox('${commentsBoxOne}-${postId}');
     box.clear();
     for (int i = 0; i < comments.length; i++) {
       box.put(i.toString(), comments[i].toJson());
     }
-    print("keys of saving to cache ${box.keys} and box is ${box.name}");
   }
 }
