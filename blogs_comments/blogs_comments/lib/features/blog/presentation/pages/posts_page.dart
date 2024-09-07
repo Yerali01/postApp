@@ -65,6 +65,7 @@ class _PostsPageState extends State<PostsPage> {
                 builder: (context, AsyncSnapshot<List<PostEntity>> snapshot) {
                   if (snapshot.hasData) {
                     return ListView.builder(
+                      padding: const EdgeInsets.only(top: 20),
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
                         final post = snapshot.data![index];

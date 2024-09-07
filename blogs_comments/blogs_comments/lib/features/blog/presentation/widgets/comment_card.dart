@@ -10,7 +10,7 @@ class CommentCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        margin: const EdgeInsets.all(20),
+        margin: const EdgeInsets.only(bottom: 20, top: 5),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: AppPallete.mintGreen,
@@ -31,6 +31,7 @@ class CommentCard extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
+                const SizedBox(height: 10),
                 Text(
                   comment.body,
                   style: const TextStyle(

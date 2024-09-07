@@ -1,7 +1,6 @@
 import 'package:blogs_comments/core/theme/app_pallete.dart';
 import 'package:blogs_comments/core/utils/show_snackbar.dart';
 import 'package:blogs_comments/core/widgets/shimmer_comment_loader.dart';
-import 'package:blogs_comments/core/widgets/shimmer_post_loader.dart';
 import 'package:blogs_comments/features/blog/domain/entities/post.dart';
 import 'package:blogs_comments/features/blog/presentation/bloc/comment_bloc.dart';
 import 'package:blogs_comments/features/blog/presentation/widgets/comment_card.dart';
@@ -60,29 +59,58 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
             ),
           ];
         },
-        body: BlocConsumer<CommentBloc, CommentState>(
-          listener: (context, state) {
-            if (state is CommentFailure) {
-              showSnackbar(context, state.error);
-            }
-          },
-          builder: (context, state) {
-            if (state is CommentLoading) {
-              return const ShimmerCommentLoader();
-            }
-            if (state is CommentDisplaySuccess) {
-              return ListView.builder(
-                itemCount: state.comments.length,
-                itemBuilder: (context, index) {
-                  final comment = state.comments[index];
-                  return CommentCard(comment: comment);
-                },
-              );
-            }
-            return const Center(
-              child: Text('No comments found.'),
-            );
-          },
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10).copyWith(top: 15),
+                child: const Text(
+                  "Comments",
+                  style: TextStyle(
+                    color: AppPallete.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 25,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: BlocConsumer<CommentBloc, CommentState>(
+                  listener: (context, state) {
+                    if (state is CommentFailure) {
+                      showSnackbar(context, state.error);
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is CommentLoading) {
+                      return const ShimmerCommentLoader();
+                    }
+                    if (state is CommentDisplaySuccess) {
+                      if (state.comments.isEmpty) {
+                        return const Center(
+                          child: Text('No comments found.'),
+                        );
+                      }
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+                        itemCount: state.comments.length,
+                        itemBuilder: (context, index) {
+                          final comment = state.comments[index];
+                          return CommentCard(comment: comment);
+                        },
+                      );
+                    }
+                    return const Center(
+                      child: Text('No comments found.'),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

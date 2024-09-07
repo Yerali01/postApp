@@ -12,7 +12,6 @@ class PostDetailsContainer extends StatelessWidget {
     final deviceWidth = MediaQuery.of(context).size.width;
     return Container(
       decoration: BoxDecoration(
-        // border: Border.all(color: Colors.grey),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
@@ -23,7 +22,6 @@ class PostDetailsContainer extends StatelessWidget {
           ),
         ],
       ),
-      margin: const EdgeInsets.all(20),
       child: Expanded(
         child: Column(
           children: [
