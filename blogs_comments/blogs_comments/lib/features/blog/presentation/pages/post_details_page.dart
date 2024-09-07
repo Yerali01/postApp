@@ -1,8 +1,11 @@
+import 'package:blogs_comments/core/theme/app_pallete.dart';
 import 'package:blogs_comments/core/utils/show_snackbar.dart';
-import 'package:blogs_comments/core/widgets/shimmer_loader.dart';
+import 'package:blogs_comments/core/widgets/shimmer_comment_loader.dart';
+import 'package:blogs_comments/core/widgets/shimmer_post_loader.dart';
 import 'package:blogs_comments/features/blog/domain/entities/post.dart';
 import 'package:blogs_comments/features/blog/presentation/bloc/comment_bloc.dart';
 import 'package:blogs_comments/features/blog/presentation/widgets/comment_card.dart';
+import 'package:blogs_comments/features/blog/presentation/widgets/post_details_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,34 +36,54 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("${widget.post.title}"),
-      ),
-      body: BlocConsumer<CommentBloc, CommentState>(
-        listener: (context, state) {
-          if (state is CommentFailure) {
-            showSnackbar(context, state.error);
-          }
+      body: NestedScrollView(
+        physics: const BouncingScrollPhysics(),
+        headerSliverBuilder: (BuildContext context, bool a) {
+          return [
+            SliverAppBar(
+              title: Text(
+                widget.post.title,
+                style: const TextStyle(
+                  color: AppPallete.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                ),
+              ),
+              pinned: false,
+              floating: true,
+              centerTitle: true,
+              elevation: 0,
+              stretch: true,
+            ),
+            SliverToBoxAdapter(
+              child: PostDetailsContainer(post: widget.post),
+            ),
+          ];
         },
-        builder: (context, state) {
-          if (state is CommentLoading) {
-            return const ShimmerLoader();
-          }
-          if (state is CommentDisplaySuccess) {
-            print('COMMENT SUCCESS + ${state.comments.length}');
-            return ListView.builder(
-              itemCount: state.comments.length,
-              itemBuilder: (context, index) {
-                final comment = state.comments[index];
-                return CommentCard(comment: comment);
-              },
+        body: BlocConsumer<CommentBloc, CommentState>(
+          listener: (context, state) {
+            if (state is CommentFailure) {
+              showSnackbar(context, state.error);
+            }
+          },
+          builder: (context, state) {
+            if (state is CommentLoading) {
+              return const ShimmerCommentLoader();
+            }
+            if (state is CommentDisplaySuccess) {
+              return ListView.builder(
+                itemCount: state.comments.length,
+                itemBuilder: (context, index) {
+                  final comment = state.comments[index];
+                  return CommentCard(comment: comment);
+                },
+              );
+            }
+            return const Center(
+              child: Text('No comments found.'),
             );
-          }
-
-          return const Center(
-            child: Text('No comments found.'),
-          );
-        },
+          },
+        ),
       ),
     );
   }

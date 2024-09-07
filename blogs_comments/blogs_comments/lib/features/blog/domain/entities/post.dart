@@ -3,7 +3,7 @@ class PostEntity {
   final int id;
   final String title;
   final String body;
-  final String? imageUrl;
+  String? imageUrl;
 
   PostEntity({
     required this.userId,

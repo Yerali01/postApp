@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-class ShimmerLoader extends StatefulWidget {
-  const ShimmerLoader({super.key});
+class ShimmerPostLoader extends StatefulWidget {
+  const ShimmerPostLoader({super.key});
 
   @override
-  State<ShimmerLoader> createState() => _ShimmerLoaderState();
+  State<ShimmerPostLoader> createState() => _ShimmerPostLoaderState();
 }
 
-class _ShimmerLoaderState extends State<ShimmerLoader> {
+class _ShimmerPostLoaderState extends State<ShimmerPostLoader> {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
@@ -25,22 +25,14 @@ class _ShimmerLoaderState extends State<ShimmerLoader> {
             children: [
               ShimmerBox(flex: 6, width: 1),
               SizedBox(height: 10),
-              ShimmerBox(flex: 1, width: 1),
-              SizedBox(height: 10),
-              ShimmerBox(flex: 1, width: 0.75),
-              SizedBox(height: 20),
               ShimmerBox(flex: 6, width: 1),
               SizedBox(height: 10),
-              ShimmerBox(flex: 1, width: 1),
-              SizedBox(height: 10),
-              ShimmerBox(flex: 1, width: 0.75),
-              SizedBox(height: 20),
               ShimmerBox(flex: 6, width: 1),
               SizedBox(height: 10),
-              ShimmerBox(flex: 1, width: 1),
+              ShimmerBox(flex: 6, width: 1),
               SizedBox(height: 10),
-              ShimmerBox(flex: 1, width: 0.75),
-              SizedBox(height: 20),
+              ShimmerBox(flex: 6, width: 1),
+              SizedBox(height: 10),
             ],
           ),
         ),
@@ -66,10 +58,10 @@ class ShimmerBox extends StatelessWidget {
       child: FractionallySizedBox(
         widthFactor: width,
         child: Container(
-          padding: const EdgeInsets.all(10),
+          margin: const EdgeInsets.all(16).copyWith(bottom: 4),
           decoration: BoxDecoration(
             color: Colors.black.withOpacity(0.05),
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
       ),

@@ -15,15 +15,18 @@ class PostModel extends PostEntity {
       'id': id,
       'title': title,
       'body': body,
+      'imageUrl': imageUrl,
     };
   }
 
-  factory PostModel.fromJson(Map<String, dynamic> map) {
+  // factory PostModel.fromJson(Map<String, dynamic> map) {
+  factory PostModel.fromJson(Map<dynamic, dynamic> map) {
     return PostModel(
       userId: map['userId'] ?? 0,
       id: map['id'] ?? 0,
       title: map['title'] ?? '',
       body: map['body'] ?? '',
+      imageUrl: map['imageUrl'] ?? '',
     );
   }
 

@@ -14,6 +14,7 @@ final class PostFailure extends PostState {
 
 final class PostDisplaySuccess extends PostState {
   final List<PostEntity> posts;
+  final BehaviorSubject<List<PostEntity>> subject;
 
-  PostDisplaySuccess(this.posts);
+  PostDisplaySuccess(this.posts, this.subject);
 }
