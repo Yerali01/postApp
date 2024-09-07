@@ -8,6 +8,7 @@ abstract interface class CacheDatasource {
   });
 
   void uploadToLocalComments({
+    required int postId,
     required List<CommentModel> comments,
   });
 
@@ -50,7 +51,7 @@ class CacheDatasourceImplementation implements CacheDatasource {
     print('startws');
     List<CommentModel> comments = [];
 
-    Box box = await Hive.openBox('comments');
+    Box box = await Hive.openBox('comments-${postId}');
     print("keys ${box.keys}");
     print("values ${box.values}");
     for (int i = 0; i < box.length; i++) {
@@ -59,9 +60,10 @@ class CacheDatasourceImplementation implements CacheDatasource {
           i.toString(),
         ),
       );
-      if (commentSingle.postId == postId) {
-        comments.add(commentSingle);
-      }
+      print(commentSingle);
+      // if (commentSingle.postId == postId) {
+      comments.add(commentSingle);
+      // }
     }
 
     return comments;
@@ -69,12 +71,14 @@ class CacheDatasourceImplementation implements CacheDatasource {
 
   @override
   void uploadToLocalComments({
+    required int postId,
     required List<CommentModel> comments,
   }) async {
-    Box box = await Hive.openBox('comments');
+    Box box = await Hive.openBox('comments-${postId}');
     box.clear();
     for (int i = 0; i < comments.length; i++) {
       box.put(i.toString(), comments[i].toJson());
     }
+    print("keys of saving to cache ${box.keys} and box is ${box.name}");
   }
 }

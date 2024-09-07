@@ -44,7 +44,7 @@ class RepositoryImplementation implements Repository {
       }
 
       final comments = await remoteDatasource.getAllComments(postId);
-      cacheDatasource.uploadToLocalComments(comments: comments);
+      cacheDatasource.uploadToLocalComments(postId: postId, comments: comments);
       return right(comments);
     } catch (e) {
       print(e.toString());
